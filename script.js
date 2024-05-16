@@ -15,8 +15,8 @@ function multiply(num1, num2) {
 };
 
 function operate(operator, num1, num2) {
-	num1 = Number(num1);
-	num2 = Number(num2);
+	num1 = parseFloat(num1);
+	num2 = parseFloat(num2);
 	switch (operator) {
 		case '+':
 			return add(num1, num2);
@@ -43,7 +43,8 @@ buttons.forEach(button => {
 
 evaluateBtn.addEventListener('click', () => {
 	const string = displayText.textContent;
-	const numbers = string.match(/[0-9]+/g);
-	const operator = string.match(/\D/);
+	const numbers = string.match(/[0-9.]+/g);
+	const operator = string.match(/[^0-9.]/);
+	console.log(numbers, operator)
 	displayText.textContent = operate(operator[0], numbers[0], numbers[1]);
 });
