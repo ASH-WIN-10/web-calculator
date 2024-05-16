@@ -29,22 +29,25 @@ function operate(operator, num1, num2) {
 	}
 }
 
-const buttons = document.querySelectorAll('button');
-const evaluateBtn = document.querySelector('#evaluate')
+const buttons = document.querySelectorAll('.btn');
+const evaluateBtn = document.querySelector('.evaluate')
 const display = document.querySelector('.display');
 const displayText = document.createElement('span');
 display.appendChild(displayText);
 
 buttons.forEach(button => {
-	button.addEventListener('click', (e) => {
-		displayText.textContent += e.target.textContent;
-	});
+	button.addEventListener('click', (e) => displayText.textContent += e.target.textContent);
 });
 
 evaluateBtn.addEventListener('click', () => {
 	const string = displayText.textContent;
 	const numbers = string.match(/[0-9.]+/g);
 	const operator = string.match(/[^0-9.]/);
-	console.log(numbers, operator)
 	displayText.textContent = operate(operator[0], numbers[0], numbers[1]);
 });
+
+const clearBtn = document.querySelector('#clear');
+const deleteBtn = document.querySelector('#delete')
+
+deleteBtn.addEventListener('click', () => displayText.textContent = displayText.textContent.slice(0, -1));
+clearBtn.addEventListener('click', () => displayText.textContent = '');
