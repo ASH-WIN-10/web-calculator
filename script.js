@@ -15,43 +15,50 @@ function multiply(num1, num2) {
 }
 
 
-function operate(operator, num1, num2) {
-	num1 = parseFloat(num1);
-	num2 = parseFloat(num2);
-	switch (operator) {
+function operate(expression) {
+	const numbers = expression.match(/[0-9.]+/g);
+	const operator = expression.match(/[^0-9.]/);
+	const num1 = parseFloat(numbers[0]);
+	const num2 = parseFloat(numbers[1]);
+	switch (operator[0]) {
 		case '+':
-			return Math.round(add(num1, num2) * 100) / 100;
+			return Math.round((add(num1, num2)) * 100000) / 100000;
 		case '-':
-			return Math.round(subtract(num1, num2) * 100) / 100;
+			return Math.round(subtract(num1, num2) * 100000) / 100000;
 		case '/':
-			return Math.round(divide(num1, num2) * 100) / 100;
+			return Math.round(divide(num1, num2) * 100000) / 100000;
 		case '*':
-			return Math.round(multiply(num1, num2) * 100) / 100;
+			return Math.round(multiply(num1, num2) * 100000) / 100000;
 	}
 }
 
 
-const buttons = document.querySelectorAll('.btn');
-const evaluateBtn = document.querySelector('.evaluate')
 const display = document.querySelector('.display');
 const displayText = document.createElement('span');
 display.appendChild(displayText);
 
+const buttons = document.querySelectorAll('.btn');
 buttons.forEach(button => button.addEventListener('click', (e) => {
 	if (displayText.textContent === 'Infinity')
 		displayText.textContent = '';
 	displayText.textContent += e.target.textContent;
 }));
 
+
+const operators = document.querySelectorAll('.operator');
+operators.forEach(operator => operator.addEventListener('click', (e) => {
+	if (displayText.textContent.replace(/[0-9.]/g, '').length === 2) 
+		displayText.textContent = operate(displayText.textContent) + e.target.textContent;
+}));
+
+
+const evaluateBtn = document.querySelector('.evaluate');
 evaluateBtn.addEventListener('click', () => {
-	const string = displayText.textContent;
-	const numbers = string.match(/[0-9.]+/g);
-	const operator = string.match(/[^0-9.]/);
-	displayText.textContent = operate(operator[0], numbers[0], numbers[1]);
+	displayText.textContent = operate(displayText.textContent);
 });
+
 
 const clearBtn = document.querySelector('#clear');
 const deleteBtn = document.querySelector('#delete');
-
 deleteBtn.addEventListener('click', () => displayText.textContent = displayText.textContent.slice(0, -1));
 clearBtn.addEventListener('click', () => displayText.textContent = '');
