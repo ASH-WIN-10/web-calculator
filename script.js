@@ -1,31 +1,32 @@
 function add(num1, num2) {
 	return num1 + num2;
-};
+}
 
 function subtract(num1, num2) {
 	return num1 - num2;
-};
+}
 
 function divide(num1, num2) {
 	return num1 / num2;
-};
+}
 
 function multiply(num1, num2) {
 	return num1 * num2;
-};
+}
+
 
 function operate(operator, num1, num2) {
 	num1 = parseFloat(num1);
 	num2 = parseFloat(num2);
 	switch (operator) {
 		case '+':
-			return add(num1, num2);
+			return Math.round(add(num1, num2) * 100) / 100;
 		case '-':
-			return subtract(num1, num2);
+			return Math.round(subtract(num1, num2) * 100) / 100;
 		case '/':
-			return divide(num1, num2);
+			return Math.round(divide(num1, num2) * 100) / 100;
 		case '*':
-			return multiply(num1, num2);
+			return Math.round(multiply(num1, num2) * 100) / 100;
 	}
 }
 
@@ -35,9 +36,7 @@ const display = document.querySelector('.display');
 const displayText = document.createElement('span');
 display.appendChild(displayText);
 
-buttons.forEach(button => {
-	button.addEventListener('click', (e) => displayText.textContent += e.target.textContent);
-});
+buttons.forEach(button => button.addEventListener('click', (e) => displayText.textContent += e.target.textContent));
 
 evaluateBtn.addEventListener('click', () => {
 	const string = displayText.textContent;
@@ -47,7 +46,7 @@ evaluateBtn.addEventListener('click', () => {
 });
 
 const clearBtn = document.querySelector('#clear');
-const deleteBtn = document.querySelector('#delete')
+const deleteBtn = document.querySelector('#delete');
 
 deleteBtn.addEventListener('click', () => displayText.textContent = displayText.textContent.slice(0, -1));
 clearBtn.addEventListener('click', () => displayText.textContent = '');
