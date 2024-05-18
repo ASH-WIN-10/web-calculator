@@ -30,13 +30,18 @@ function operate(operator, num1, num2) {
 	}
 }
 
+
 const buttons = document.querySelectorAll('.btn');
 const evaluateBtn = document.querySelector('.evaluate')
 const display = document.querySelector('.display');
 const displayText = document.createElement('span');
 display.appendChild(displayText);
 
-buttons.forEach(button => button.addEventListener('click', (e) => displayText.textContent += e.target.textContent));
+buttons.forEach(button => button.addEventListener('click', (e) => {
+	if (displayText.textContent === 'Infinity')
+		displayText.textContent = '';
+	displayText.textContent += e.target.textContent;
+}));
 
 evaluateBtn.addEventListener('click', () => {
 	const string = displayText.textContent;
