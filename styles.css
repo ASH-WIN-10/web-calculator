@@ -1,0 +1,106 @@
+@import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap);
+
+:root {
+    --gap: 8px;
+    --border-radius: 10px;
+}
+
+body {
+    background-color: slategray;
+    font-family: "Quicksand", sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    border-radius: var(--border-radius);
+    background-color: #212121;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.display {
+    background-color: #3B3B3B;
+    width: auto;
+    height: 70px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.display > span {
+    color: limegreen;
+    background: transparent;
+    font-size: 30px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--gap);
+}
+
+.columns {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gap);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gap);
+}
+
+button {
+    font-size: 18px;
+    font-weight: 900;
+    border: 0px solid transparent;
+    border-radius: var(--border-radius);
+    background-color: #616161;
+    color: white;
+    padding: 20px 30px;
+    transition: all 150ms ease-in-out;
+}
+
+#clear, #delete {
+    flex-grow: 1;
+}
+
+button:hover {
+    background-color: #bdbdbd;
+    color: black;
+    cursor: pointer;
+    transform: translateY(-0.2rem);
+}
+
+#clear:hover, 
+#delete:hover {
+    background-color: lightcoral;
+}
+
+.operator:hover {
+    background-color: mediumturquoise;
+}
+
+.evaluate:hover {
+    background-color: limegreen;
+}
+
+button:active {
+    transform: translateY(0);
+}
