@@ -26,9 +26,10 @@ body {
 }
 
 .display {
+    width: 300px;
+    padding: 0 5px;
     background-color: #3B3B3B;
-    width: auto;
-    height: 70px;
+    min-height: 70px;
     border-radius: var(--border-radius);
     display: flex;
     justify-content: end;
@@ -36,7 +37,10 @@ body {
 }
 
 .display > span {
-    color: limegreen;
+    width: 300px;
+    word-wrap: break-word;
+    text-align: end;
+    color: white;
     background: transparent;
     font-size: 30px;
 }
