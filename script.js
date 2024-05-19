@@ -13,7 +13,7 @@ function operate(expression) {
 	const num2 = parseFloat(numbers[1]);
 	switch (operator[0]) {
 		case '+':
-			return Math.round((add(num1, num2)) * 100000) / 100000;
+			return Math.round(add(num1, num2) * 100000) / 100000;
 		case '-':
 			return Math.round(subtract(num1, num2) * 100000) / 100000;
 		case '/':
@@ -24,32 +24,44 @@ function operate(expression) {
 }
 
 
+function handleDisplay(e) {
+	if (displayText.textContent === 'Infinity' || displayText.textContent === 'ERROR')
+		displayText.textContent = '';
+	displayText.textContent += e.target.textContent;
+}
+
+
+function handleOperators(e) {
+	if (displayText.textContent.replace(/[0-9.]/g, '').length === 2) 
+		displayText.textContent = operate(displayText.textContent) + e.target.textContent;
+}
+
+
+//-------Handle displaying the text
 const display = document.querySelector('.display');
 const displayText = document.createElement('span');
 display.appendChild(displayText);
 
 const buttons = document.querySelectorAll('.btn');
-buttons.forEach(button => button.addEventListener('click', (e) => {
-	if (displayText.textContent === 'Infinity' || displayText.textContent === 'ERROR')
-		displayText.textContent = '';
-	displayText.textContent += e.target.textContent;
-}));
+buttons.forEach(button => button.addEventListener('click', handleDisplay));
 
 
+//-------Handle operators
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => operator.addEventListener('click', (e) => {
-	if (displayText.textContent.replace(/[0-9.]/g, '').length === 2) 
-		displayText.textContent = operate(displayText.textContent) + e.target.textContent;
-}));
+operators.forEach(operator => operator.addEventListener('click', handleOperators));
 
 
+//-------Handle evaluation
 const evaluateBtn = document.querySelector('.evaluate');
-evaluateBtn.addEventListener('click', () => {
-	displayText.textContent = operate(displayText.textContent);
-});
+//Evaluate the expression on clicking '='
+evaluateBtn.addEventListener('click', () => displayText.textContent = operate(displayText.textContent));
 
 
+//-------Handle clearing and deleting
 const clearBtn = document.querySelector('#clear');
 const deleteBtn = document.querySelector('#delete');
+
+//Delete the last character from the expression
 deleteBtn.addEventListener('click', () => displayText.textContent = displayText.textContent.slice(0, -1));
+//Delete all the characters from the expression
 clearBtn.addEventListener('click', () => displayText.textContent = '');
